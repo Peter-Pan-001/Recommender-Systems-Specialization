@@ -6,12 +6,14 @@ This assignment includes implementation of Content-Based Recommender with Excel 
 
 ## Excel Explanation
 
-Part 1. Build and use a very basic profile
+### Part 1. Build and use a very basic profile
+
 First, you will build a very simple profile of user preferences for attributes. In this profile, you’ll count the total the number of positive and negative evaluations associated with each attribute, and create a profile with the total score for each attribute for each user. For example, user 1’s score for “Family” will get a +1 from doc1 (positive evaluation) and a -1 from doc 19 (negative evaluation) for a total profile value of 0 (neutral). In contrast, user 2’s score for Europe will be +3 (+1 each for doc2, doc4, and doc17).
 
 You can compute the profiles and place them in the “User Profiles” section of the spreadsheet.
 
-Part 2. Next, let’s treat all articles as having unit weight ...
+### Part 2. Next, let’s treat all articles as having unit weight
+
 You may have noticed that in our computation an article that had many attributes checked could have more influence on the overall profile than one that had only a few. doc 1 and doc 19 each have five attributes, while doc6, doc7, and doc18 only have 2 attributes each.
 
 We want to explore whether our simple model may be counting these attribute-heavy documents too much. For example, we might conclude that liking doc6 says more about liking baseball (since it is one of only two attributes for the article along with Europe) than liking doc1 says (since doc1 is also about politics, Asia, soccer, and family).
@@ -32,7 +34,8 @@ The difference here can be seen by looking at the profile attribute values. Doc7
 
 Now let’s look at user 1. While user 1's first-place document is the same in both models, that isn't true for other places. In our simple model, the second/third place recommendation was a tie between doc1 and doc 12. Neither of those is in second place with this new model.
 
-Part 3. Finally, let’s consider how common different terms are among our documents …
+### Part 3. Finally, let’s consider how common different terms are among our documents
+
 We’re going to do one more model -- one that accounts for the fact the the content attributes have vastly different frequencies.
 
 We’re going to include an IDF (inverse document frequency) term into our equation. Start with your spreadsheet from part 2. Add a row that shows 1/DF where DF is the number of documents in which each content attribute occurs. For example, baseball occurs in 4 documents, so baseball’s entry will be 0.25. Politics occurs in 10 documents, so it will get an IDF score of 0.1 (1 / 10).
