@@ -2,6 +2,14 @@
 
 The assignment includes implemention of Non-Personalized Recommender System with Excel and Java. 
 
+## Use Case
+
+Assumption: We have the data of user ratings.
+
+1. Mean. Provide non-personalized recommendations according to mean rating.
+
+2. Association. Given an item, provide non-personalized recommendations most associated with the item according to historical ratings.
+
 ## Java Results Screenshots
 
 Mean:
@@ -15,6 +23,28 @@ Basic Association:
 
 Lift Association:
 ![](screenshots/LiftAssoc.png)
+
+## Java Code Explanation
+
+#### Mean
+
+ItemMeanModel:
+
+ItemMeanModelProvider:
+
+DampedMeanModelProvider: 
+
+MeanItemBasedItemRecommender: 
+
+#### Association
+
+AssociationModel: 
+
+BasicAssociationModelProvider:
+
+LiftAssociationModelProvider:
+
+AssociationItemBasedItemRecommender:
 
 ## Excel Explanation
 
