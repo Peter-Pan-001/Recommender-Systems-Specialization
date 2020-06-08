@@ -2,7 +2,37 @@
 
 This assignment includes implementation of Content-Based Recommender with Excel and Java.
 
+## Java Code Explanation
+
+### Terminology
+
+Item Vector: For each item, we have a vector of tags (tags are like features).
+
+User Profile: For each user, we have a vector of tags.
+
+### Classes
+
+TagData: Store user_id, item_id, timestamp and tag. (In this case, item is movie)
+
+TFIDFModel: Store normalized tag vector for each item.
+
+TFIDFModelProvider: Provide detailed method to calculate TFIDF item vectors, which includes four steps: (1) Calculate Term Frequency. For a particular <item, tag> pair, term frequency is the # of times all users assign the item this tag. (2) Calculate Document Frequency. For a particular tag, the document frequency is # of items this tag is assigned to. (3) Calculate TFIDF. For a particular <item, tag> pair, TFIDF = Term Frequency * log (# of all items / # of items with tag). (4) Normalize TFIDF. For each item, normalize TFIDF vector to be a unit vector.
+
+UserProfileBuilder: Interface to implement two methods of building user profile.
+
+ThresholdUserProfileBuilder: The first and basic way to build user profile. For one particular user, we go through each of his/her ratings and add the item's vector to user profile if the user's rating to this item is larger than threshold (in our case we set threshold = 3.5 (0-5)). This method takes only likes into consideration.
+
+WeightedUserProfileBuilder: The second and personally better way to build user profile. For one particular user, we first calculate his/her average rating across all items and then we regard the difference between his/her rating to one particular item and the average rating as the weight of this item's vector added into user profile.
+
+TFIDFItemScorer: Generate item scores personalized for a user. To be more specific, compute the cosine of each item tag vector (TFIDF vector) and the user profile. 
+
 ## Java Results Screenshots
+
+Recommendation with ThresholdUserProfileBuilder:
+![](screenshots/Threshold.png)
+
+Recommendation with WeightedUserProfileBuilder:
+![](screenshots/Weighted.png)
 
 ## Excel Explanation
 
