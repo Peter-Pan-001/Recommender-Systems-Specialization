@@ -2,6 +2,12 @@
 
 This assignment includes implementation of Content-Based Recommender with Excel and Java.
 
+## Use Case
+
+Assumption: We have the data of user rating and item tag (in our case assigned by users).
+
+Target: Provide personalized recommendation.
+
 ## Java Results Screenshots
 
 Recommendation with ThresholdUserProfileBuilder:
