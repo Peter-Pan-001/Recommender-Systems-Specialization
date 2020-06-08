@@ -2,6 +2,14 @@
 
 This assignment includes implementation of Content-Based Recommender with Excel and Java.
 
+## Java Results Screenshots
+
+Recommendation with ThresholdUserProfileBuilder:
+![](screenshots/Threshold.png)
+
+Recommendation with WeightedUserProfileBuilder:
+![](screenshots/Weighted.png)
+
 ## Java Code Explanation
 
 ### Terminology
@@ -25,14 +33,6 @@ ThresholdUserProfileBuilder: The first and basic way to build user profile. For 
 WeightedUserProfileBuilder: The second and personally better way to build user profile. For one particular user, we first calculate his/her average rating across all items and then we regard the difference between his/her rating to one particular item and the average rating as the weight of this item's vector added into user profile.
 
 TFIDFItemScorer: Generate item scores personalized for a user. To be more specific, compute the cosine of each item tag vector (TFIDF vector) and the user profile. 
-
-## Java Results Screenshots
-
-Recommendation with ThresholdUserProfileBuilder:
-![](screenshots/Threshold.png)
-
-Recommendation with WeightedUserProfileBuilder:
-![](screenshots/Weighted.png)
 
 ## Excel Explanation
 
