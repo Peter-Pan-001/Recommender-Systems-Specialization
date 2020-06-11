@@ -28,23 +28,23 @@ Lift Association:
 
 #### Mean
 
-ItemMeanModel:
+ItemMeanModel: Class that stores item mean ratings.
 
-ItemMeanModelProvider:
+ItemMeanModelProvider: Class that builds the mean rating item scorer, computing item means from the ratings in the DAO.
 
-DampedMeanModelProvider: 
+DampedMeanModelProvider: Class that builds the mean rating item scorer, computing damped item means from the ratings in the DAO.
 
-MeanItemBasedItemRecommender: 
+MeanItemBasedItemRecommender: Class that scores each item with its mean rating.
 
 #### Association
 
-AssociationModel: 
+AssociationModel: An association rule model, storing item-item association scores.
 
-BasicAssociationModelProvider:
+BasicAssociationModelProvider: Build a model for basic association rules.  This class computes the association for all pairs of items.
 
-LiftAssociationModelProvider:
+LiftAssociationModelProvider: Build an association rule model using a lift metric.
 
-AssociationItemBasedItemRecommender:
+AssociationItemBasedItemRecommender: Class that uses association rules.
 
 ## Excel Explanation
 
