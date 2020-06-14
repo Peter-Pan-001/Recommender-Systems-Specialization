@@ -1,12 +1,16 @@
-# Content-Based Recommender 
+# Item-Item Collaborative Filtering Recommender 
 
-This assignment includes implementation of Content-Based Recommender with Excel and Java.
+This assignment includes implementation of Item-Item Collaborative Filtering Recommender with Excel and Java.
 
 ## Use Case
 
-Assumption: We have the data of user rating and item tag (in our case assigned by users).
+#### 1. Recommend for a user
 
-Target: Provide personalized recommendation.
+Target: Provide personalized recommendation given a user.
+
+#### 2. Find similar items
+
+Target: Provide recommendation of similar items given a set of reference items.
 
 ## Java Results Screenshots
 
