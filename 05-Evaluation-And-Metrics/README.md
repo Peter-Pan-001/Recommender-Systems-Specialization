@@ -1,66 +1,57 @@
-# Non-Personalized Recommender Assignment
+# Evaluation and Metrics Assignment
 
-The assignment includes implemention of Non-Personalized Recommender System with Excel and Java. 
-
-## Use Case
-
-Assumption: We have the data of user ratings.
-
-1. Mean. Provide non-personalized recommendations according to mean rating.
-
-2. Association. Given an item, provide non-personalized recommendations most associated with the item according to historical ratings.
-
-## Java Results Screenshots
-
-Mean:
-![](screenshots/Mean.png)
-
-Damped Mean:
-![](screenshots/DampedMean.png)
-
-Basic Association:
-![](screenshots/BasicAssoc.png)
-
-Lift Association:
-![](screenshots/LiftAssoc.png)
+The assignment includes implemention of several metrics with Excel and Java. For Java, I only implemented the entropy metric.
 
 ## Java Code Explanation
 
-#### Mean
+TagData: Class containing entity type and attribute definitions for accessing tag data.
 
-ItemMeanModel: Class that stores item mean ratings.
+LuceneItemItemModel: The Lucene-backed CBF model.
 
-ItemMeanModelProvider: Class that builds the mean rating item scorer, computing item means from the ratings in the DAO.
+LuceneModelBuilder: Methods to build LuceneItemItemModel.
 
-DampedMeanModelProvider: Class that builds the mean rating item scorer, computing damped item means from the ratings in the DAO.
-
-MeanItemBasedItemRecommender: Class that scores each item with its mean rating.
-
-#### Association
-
-AssociationModel: An association rule model, storing item-item association scores.
-
-BasicAssociationModelProvider: Build a model for basic association rules.  This class computes the association for all pairs of items.
-
-LiftAssociationModelProvider: Build an association rule model using a lift metric.
-
-AssociationItemBasedItemRecommender: Class that uses association rules.
+TagEntropyMetric: Implement the entropy metric.
 
 ## Excel Explanation
 
-There are 7 deliverables for this assignment. Each deliverable represents a different analysis of the data provided to you. The first three deliverables represent non-personalized summary statistics; the next two represent product association using two different mechanisms (we aren't using lift here because of how similar the popularity levels are). The last two represent a demographic analysis to explore whether using gender would be wise given this dataset. Each question has its own "quiz" in which the responses are entered.
+Rows 3-12 provide the ratings matrix for 10 users by 10 movies. For example, cell D10 shows a 3.5, showing that user 2492 gave the movie Forrest Gump a score of 3.5 stars. Many cells are empty -- these reflect movies for which we do not have ratings by those users. To make things easier for later computation, we've also included the count of movie ratings per user, and per movie.
 
-1. Mean Rating: Calculate the mean rating for each movie, order with the highest rating listed first, and submit the top three (along with the mean scores for the top two).
+Rows 17-26 provide a similar matrix, but in this case these are predictions from our recommender algorithm. For example, D24 shows 4.2, which means that user 2492 is prediced to give Forrest Gump 4.2 stars. This means the prediction is 0.7 stars higher than the actual rating. Predictions are all between 0 and 5 stars.
 
-2. Rating Count (popularity): Count the number of ratings for each movie, order with the most number of ratings first, and submit the top three (along with the counts for the top two).
+Finally, to help you get going, rows 29-38 show you the absolute errors for each prediction. If you look at the formula at the cell B29, =if(ISNUMBER(B3),abs(B3-B17),""), you'll see that we don't just take the absolute value of the difference, but also make sure there is a blank string in any cell that doesn't have a rating to compute from. This is important because the average functions we use will ignore blanks, but would count in zeroes or other values that could be interpreted as numeric.
 
-3. % of ratings 4+ (liking): Calculate the percentage of ratings for each movie that are 4 or higher. Order with the highest percentage first, and submit the top three (along with the percentage for the top two). Notice that the three different measures of "best" reflect different priorities and give different results; this should help you see why you need to be thoughtful about what metrics you use.
+Note: In an earlier (buggy) version of this spreadsheet, this was expressed as =if(B3, ...). That works here, but does not work below when computing the squared error, since the truth value of B3 is false for both non-numeric values and for the number zero.
 
-4. Top movies for someone who has seen Toy Story: Calculate movies that most often occur with Movie #1: Toy Story, using the (x+y)/x method described in class. In other words, for each movie, calculate the percentage of Toy Story raters who also rated that movie. Order with the highest percentage first, and submit the top 3 (along with the correlations for the top two). Note, you will have ties -- to break the ties, use the lowest-numbered movie as the higher-ranked one. In other words, if Movies 541 and 318 are tied, then 318 gets the higher rank.
+Here are the questions we want you to answer (in the quiz that follows). We suggest you pull together all of the answers first, and then paste them into the quiz at the end.
 
-5. Correlation with Toy Story: Calculate the correlation between the vectors of ratings for Toy Story and each other movie. You can use the built-in CORREL() function. Order by the highest correlation (positive only) and submit the top 3 along with the correlation values for the top 2. Notice the differences between co-occurrence and correlation; these metrics are showing different types of relationships.
+1. Compute the mean absolute error for each user. For example, user 5261 has a mean absolute error of 0.82 (mostly because of a really bad prediction on the Pirates of the Carribean movie).
+(a) which users have the highest and lowest MAE, and what are those MAE values?
 
-6. Mean rating difference by gender: First, recompute the mean rating for each movie separately for males and for females. And calculate the overall mean rating (across all ratings) for males and females. Submit the two movies that have the greatest differences (one where men are most above women, and one where women are most above men) along with the differences in average. Also submit the difference in overall rating averages (female average - male average).
+2. Also compute the mean absolute error associated with the predictions for each movie. For example, Forrest Gump has an MAE of 0.5.
 
-7. Next, compute the % of ratings 4+ separately for males and females. You'll be asked to submit two movies as above (largest difference in each direction). And again you'll indicate whether men or women are more likely to rate movies 4 stars or above.
+(a) which movies have the highest and lowest MAE, and what are those MAE values?
+
+3. Compute the overall MAE three ways (three decimal places is enough):
+
+(a) the normal MAE, which averages over all predictions
+
+(b) the by-user MAE, which averages the MAEs of each user
+
+(c) the by-movie MAE, which averages the MAEs of each movie
+
+4. Next, create a matrix with the squared errors (instead of absolute errors), and compute the MSE and RMSE (root-mean-squared-error) for each user. Excel and other spreadsheets have a built-in function SQRT() to compute square roots. Be sure that you are computing the MSE first, then taking the square root (if you take the square root of each error before averaging it, you end up with MAE again). For example, user 5136 has an MSE of 0.7911 and an RMSE of .8894.
+
+(a) which users have the highest and lowest RMSE, and what are those RMSE values?
+
+5. Then, compute the overall MSE and RMSE across all predictions (just the normal way, no need to compute by-user or by-movie). Again, remember to average all the squared errors to compute MSE, then take the square root of the MSE to get RMSE.
+
+6. Next, compute the correlation between ratings and predictions using the built-in CORREL() function. First, do this for each user (e.g., the correlation between ratings and predictions for user 5136 is 0.1698 -- only about 17%, and therefore not very good). Then, apply the same correlation to the full matrices.
+
+(a) report the top and bottom correlations (the bottom ones may be negative) by user (both user ID and correlation value).
+
+(b) report the overall correlation between ratings and predictions.
+
+Note that the correlations do not correspond closely to error measures. The errors are about the size of mistakes; the correlations will be high if the ratings and predictions are mostly in the same relative order (i.e., if the predictions do a better job matching relative preferences).
+
+7. We could proceed to other metrics (e.g., large errors or reversals), but we can see that we don't have enough data to see much here (indeed, there is only three errors of two stars or larger), so we'll stop here.
 
