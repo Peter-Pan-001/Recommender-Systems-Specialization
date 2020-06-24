@@ -1,5 +1,5 @@
 # Recommender-Systems-Specialization
-Homework of Coursera Recommender Systems Specialization
+Homework of Coursera Recommender Systems Specialization:
 1. Non-Personalized Recommender
 2. Content Based Recommender
 3. User User Collaborative Filtering Recommender
